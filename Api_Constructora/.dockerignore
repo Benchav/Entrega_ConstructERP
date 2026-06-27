@@ -1,0 +1,27 @@
+# Dependencias
+node_modules
+npm-debug.log*
+
+# Variables de entorno (NUNCA copiar al contenedor)
+.env
+.env.*
+
+# Control de versiones
+.git
+.gitignore
+
+# Documentación y pruebas (no necesarios en producción)
+docs/
+tests/
+*.md
+
+# IDE y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Archivos de despliegue
+.vercel
+dist/
+build/

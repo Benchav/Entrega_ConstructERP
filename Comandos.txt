@@ -1,0 +1,11 @@
+Levantar el proyecto:
+
+docker compose up -d --build
+
+
+Detener el proyecto:
+
+docker compose down
+
+
+

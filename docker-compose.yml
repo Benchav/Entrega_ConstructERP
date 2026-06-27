@@ -1,0 +1,47 @@
+# ============================
+# Docker Compose - ConstructERP
+# Orquestación de Backend + Frontend
+# ============================
+# Uso:
+#   docker-compose build        → Construir imágenes
+#   docker-compose up -d        → Levantar servicios
+#   docker-compose down         → Detener servicios
+#   docker-compose logs -f      → Ver logs en tiempo real
+# ============================
+
+services:
+  # ─── Backend: Node.js + Express + Firebase ───
+  backend:
+    build:
+      context: ./Api_Constructora
+      dockerfile: Dockerfile
+    container_name: constructerp-backend
+    env_file:
+      - ./Api_Constructora/.env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    ports:
+      - "3000:3000"       # Expuesto para debug directo (opcional en producción)
+    networks:
+      - constructora-net
+    restart: unless-stopped
+
+  # ─── Frontend: React + Vite → Nginx ───
+  frontend:
+    build:
+      context: ./Constructora
+      dockerfile: Dockerfile
+    container_name: constructerp-frontend
+    ports:
+      - "80:80"           # Puerto principal de acceso al sistema
+    depends_on:
+      - backend
+    networks:
+      - constructora-net
+    restart: unless-stopped
+
+# ─── Red Interna ───
+networks:
+  constructora-net:
+    driver: bridge
